@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from gui.app_statsConfigDiag import StatsConfigDialog
 
 class AppPromptMixin:
     def _prompt_triangle_vertex_zs(self):
@@ -9,7 +10,6 @@ class AppPromptMixin:
                 return None
             zs.append(z)
         return zs
-
 
     def _prompt_z(self, id):
         dialog = ctk.CTkInputDialog(text=f"Enter station{id} Z coordinate:", title="Z value")
@@ -40,50 +40,9 @@ class AppPromptMixin:
             return None
         
 
-    def _prompt_test_name(self):
-        dialog = ctk.CTkInputDialog(
-            text="Enter test name (stored in first CSV column):",
-            title="Get Stats",
-        )
-        raw = dialog.get_input()
-        if raw is None:
-            return None
-        raw = raw.strip()
-        if raw == "":
-            return None
-        return raw
-
-    def _prompt_num_runs(self, default="50"):
-        dialog = ctk.CTkInputDialog(
-            text=f"Enter number of runs / samples per target (default {default}):",
-            title="Get Stats",
-        )
-        raw = dialog.get_input()
-        if raw is None:
-            return None
-        raw = raw.strip()
-        if raw == "":
-            raw = default
-        try:
-            n = int(raw)
-            if n <= 0:
-                raise ValueError
-            return n
-        except ValueError:
-            self.log_panel.write("ERROR: Number of runs must be a positive integer.")
-            return None
-
     def _prompt_stats_config(self):
-        test_name = self._prompt_test_name()
-        if test_name is None:
-            return None
+        parent = self.winfo_toplevel() if hasattr(self, "winfo_toplevel") else self.root
 
-        n_runs = self._prompt_num_runs()
-        if n_runs is None:
-            return None
-
-        ref_id = self._prompt_reference_station()
-        if ref_id is None:
-            return None
-
-        return test_name, n_runs, ref_id
+        dlg = StatsConfigDialog(parent, self.log_panel, default_runs="50")
+        parent.wait_window(dlg)
+        return dlg.result

@@ -1,6 +1,4 @@
 
-
-# gui/app_stats.py
 import csv
 import os
 import math
@@ -121,6 +119,5 @@ class StatsMixin:
 
         self.log_panel.write(f"OK: appended {len(rows)} row(s) to {csv_path}")
 
-        # optional redraw if you want
         if hasattr(self, "_redraw_all"):
             self._redraw_all()
