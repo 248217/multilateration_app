@@ -14,7 +14,6 @@ class _BaseView(ctk.CTkFrame):
         self.xlim = xlim
         self.ylim = ylim
 
-        # colors
         self.fig_bg = "#1e1e1e"
         self.ax_bg = "#2b2b2b"
         self.fg = "white"
@@ -32,7 +31,6 @@ class _BaseView(ctk.CTkFrame):
         self.canvas.draw()
 
     def reset_axes(self):
-        """Call after ax.clear() to restore styling/limits."""
         self.ax.set_facecolor(self.ax_bg)
         self.ax.set_title(self.title, pad=4, color=self.fg)
 

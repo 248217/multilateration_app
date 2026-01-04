@@ -36,6 +36,12 @@ class Scene:
         self.stations.clear()
         self.targets.clear()
 
+    def reset_stations(self):
+        self.stations.clear()
+
+    def reset_targets(self):
+        self.targets.clear()
+
     def _check_bounds(self, position):
         (xmin, xmax), (ymin, ymax), (zmin, zmax) = self.bounds
         x, y, z = position
