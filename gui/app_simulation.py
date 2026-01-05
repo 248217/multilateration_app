@@ -40,7 +40,10 @@ class SimulationMixin:
                 f"est=({ex:.2f},{ey:.2f},{ez:.2f})  err={err:.3f} m  err_xy={err_xy:.3f} m  err_z={err_z:.3f} m"
             )
 
-        self._redraw_all()
-        self._draw_hyperbolas_for_target(t, stations, ref_id, tdoa)
+            self._draw_hyperbolas_for_target(t, stations, ref_id, tdoa)
+
+        self.xy_view.canvas.draw_idle()
+        self.xz_view.canvas.draw_idle()
+        self.yz_view.canvas.draw_idle()
     
         return (tx, ty, tz), (ex, ey, ez), err, err_xy, err_z
